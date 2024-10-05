@@ -32,15 +32,5 @@ export const userStore = defineStore("auth", {
         getUserData() {
             return this.user;
         },
-        getUserFromLocalStorage() {
-            const userData = localStorage.getItem("user");
-            const apiToken = localStorage.getItem("apiToken");
-            if (userData) {
-                this.user = JSON.parse(userData);
-            }
-            if (apiToken) {
-                this.token = apiToken;
-            }
-        },
     },
 });

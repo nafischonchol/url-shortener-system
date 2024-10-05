@@ -38,7 +38,7 @@
                                     required
                                 />
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">
+                            <button type="submit" class="btn primary-button w-100">
                                 Sign Up
                             </button>
                         </form>
@@ -63,7 +63,6 @@ export default {
     },
     methods: {
         handleRegister() {
-            // Handle registration logic here (e.g., API call)
             console.log('Registering with:', this.username, this.email, this.password);
         },
     },

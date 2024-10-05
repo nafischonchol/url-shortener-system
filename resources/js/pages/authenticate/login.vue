@@ -28,7 +28,7 @@
                                     required
                                 />
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">
+                            <button type="submit" class="btn primary-button w-100">
                                 Login
                             </button>
                         </form>
@@ -52,7 +52,6 @@ export default {
     },
     methods: {
         handleLogin() {
-            // Handle login logic here (e.g., API call)
             console.log('Logging in with:', this.email, this.password);
         },
     },
