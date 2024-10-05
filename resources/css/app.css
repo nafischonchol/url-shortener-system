@@ -1,0 +1,39 @@
+body {
+    background-color: #f8f9fa; /* Light gray background for the body */
+}
+
+.navbar {
+    margin-bottom: 20px;
+    background-color: #284243!important;
+    color:#ffffff!important;
+}
+
+.navbar-brand {
+    color: #ffffff!important; 
+}
+
+.navbar-brand:hover {
+    color: #f8f9fa; /* Light gray on hover */
+}
+
+.nav-link {
+    color: #ffffff!important; /* White text color for links */
+}
+
+.nav-link:hover {
+    color: #f8f9fa; /* Light gray on hover */
+}
+
+.card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Card shadow */
+}
+
+.card-header {
+    background-color: #007bff; /* Blue background for card header */
+    color: #ffffff; /* White text color for card header */
+}
+
+.card-body {
+    background-color: #ffffff; /* White background for card body */
+}
+
