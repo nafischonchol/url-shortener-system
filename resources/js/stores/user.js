@@ -3,8 +3,8 @@ import { defineStore } from "pinia";
 export const userStore = defineStore("auth", {
     state: () => {
         return {
-            user: null,
-            token: null,
+            user: JSON.parse(localStorage.getItem('user')) || null,
+            token: localStorage.getItem('apiToken') || null,
         };
     },
     getters: {

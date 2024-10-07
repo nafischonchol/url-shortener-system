@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Header from "@/layouts/header.vue";
+import Header from "@/layouts/auth-header.vue";
 
 export default {
 	components: {  Header },

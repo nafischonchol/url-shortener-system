@@ -9,12 +9,10 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const auth = userStore();
-    auth.getUserFromLocalStorage();
 
     let user = auth.getUserData();
     const requiresAuth = !to.meta.guestOnly;
     const isAuthenticated = user?.token;
-    console.log(user);
 
     if (requiresAuth && !isAuthenticated) {
         next({ path: "/login" });
