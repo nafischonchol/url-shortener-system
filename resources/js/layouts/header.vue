@@ -11,11 +11,10 @@
                         <router-link class="nav-link" to="/register">Sign Up</router-link>
                     </li>
 
-                    <!-- If the user is logged in -->
                     <li class="nav-item dropdown" v-if="isLoggedIn">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ username }}
+                            {{ user?.name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li>
@@ -32,23 +31,29 @@
 import { ref } from 'vue';
 import { userStore } from "@/stores/user.js";
 import { useRouter } from 'vue-router';
+import axios from "@/mixins/axios-config";
 
 const router = useRouter();
-const isLoggedIn = ref(true);
-const username = ref("Nafis");
+const auth = userStore();
+const user  = ref(auth.getUserData());
+const isLoggedIn = user ? ref(true) : ref(false);
 
 const logout = async () => {
-   isLoggedIn.value = false;
-   const auth = userStore();
-   localStorage.clear();
-   auth.setUserNull();
-   router.push({ name: "login" });
+	try {
+		await axios.post("/logout");
+        isLoggedIn.value = false;
+  
+        localStorage.clear();
+        auth.setUserNull();
+        router.push({ name: "login" });
+		
+	} catch (error) {
+	}
 };
 </script>
 
 
 <style scoped>
-/* You can add any custom styles here */
 .navbar {
     margin-bottom: 20px;
 }

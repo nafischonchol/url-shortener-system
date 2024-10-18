@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Response;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService
@@ -36,6 +37,17 @@ class AuthService
             $user = User::create($data);
             $user['token'] = $user->createToken('url-shortener')->plainTextToken;
             return $this->responseSuccess(UserResource::make($user),"Register successfully!");
+        } catch (\Throwable $th) {
+            return $this->responseError($th);
+        }
+    }
+
+    public function logout()
+    {
+        try
+        {
+            auth()->user()->tokens()->delete();
+            return $this->responseSuccess([],"Logout successfully done!");
         } catch (\Throwable $th) {
             return $this->responseError($th);
         }

@@ -49,7 +49,7 @@ import { userStore } from "@/stores/user.js";
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
-const allErrors = new Errors();
+const allErrors = ref(new Errors());
 const auth = userStore();
 const form = ref({
 	email: "",
