@@ -46,14 +46,14 @@
               </thead>
               <tbody>
                 <tr v-for="item in links " :key="item.id">
-                  <td>
+                  <td width="10%">
                     <span>{{ item.created_at }}</span>
                   </td>
                   <td>
                     <a :href="item.shortened_url" target="_blank">{{ item.shortened_url }}</a>
                   </td>
-                  <td>
-                    <span>{{ item.long_url }}</span>
+                  <td width="65%">
+                    <span class="text-break">{{ item.long_url }}</span>
                   </td>
                   <td>
                     <span>{{ item.clicks }}</span>

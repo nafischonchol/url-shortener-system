@@ -20,8 +20,8 @@ class URLShortenerController extends Controller
         return $this->urlShortenerService->getLinks($request);
     }
     
-    public function redirectToOriginal(Request $request)
+    public function redirectToOriginal($shortened)
     {
-        return "fhslfsdf";
+        return $this->urlShortenerService->redirectToOriginal($shortened);
     }
 }

@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use App\Http\Resources\ShortenedResource;
 use App\Models\ShortenUrl;
 use App\Traits\ResponseTrait;
-use App\Http\Resources\ShortenedResource;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class URLShortenerService
 {
@@ -14,23 +15,23 @@ class URLShortenerService
         try
         {
             $url = ShortenUrl::create([
-                "user_id"=> auth()->id(),
-                "long_url" => $request->url
+                "user_id" => auth()->id(),
+                "long_url" => $request->url,
             ]);
 
             $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $base = 62;
 
             $id = $url->id;
-            $short_url = '';
+            $shortened = '';
             while ($id > 0) {
-                $short_url = $characters[$id % $base] . $short_url;
+                $shortened = $characters[$id % $base] . $shortened;
                 $id = floor($id / $base);
             }
 
-            $shortened_url = url('/')."/".$short_url;
+            $shortened_url = url('/') . "/" . $shortened;
             $url->update([
-                "shortened_url" => $shortened_url
+                "shortened_url" => $shortened,
             ]);
 
             return $this->responseSuccess($shortened_url);
@@ -38,18 +39,18 @@ class URLShortenerService
             return $this->responseError($th);
         }
     }
-    
+
     public function getLinks($request)
     {
         try
         {
             $data = ShortenUrl::latest("id")
-            ->where('user_id', auth()->id())
-            ->paginate($request->input('per_page', 10));
-          
+                ->where('user_id', auth()->id())
+                ->paginate($request->input('per_page', 10));
+
             $response = [
                 'links' => ShortenedResource::collection($data),
-                "meta"=> $this->paginateMetaData($data, $request)
+                "meta" => $this->paginateMetaData($data, $request),
             ];
 
             return $this->responseSuccess($response);
@@ -58,14 +59,20 @@ class URLShortenerService
         }
     }
 
-    public function redirectToOriginal()
+    public function redirectToOriginal($shortened)
     {
         try
         {
-            redirect('fsdf');
+            $shortened_url = ShortenUrl::where('shortened_url', $shortened)->firstOrFail();
+
+            $shortened_url->increment('clicks');
+
+            return redirect($shortened_url->long_url);
+        } catch (ModelNotFoundException $th) {
+            return "Shortened URL not found";
         } catch (\Throwable $th) {
-            return $this->responseError($th);
+            return $th->getMessage();
         }
     }
- 
+
 }

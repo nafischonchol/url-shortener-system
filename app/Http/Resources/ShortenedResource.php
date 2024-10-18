@@ -11,8 +11,8 @@ class ShortenedResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "created_at"=> $this->created_at->format('d-m-Y H:i:s'),
-            "shortened_url"=> $this->shortened_url,
+            "created_at"=> $this->created_at->format('d-m-Y'),
+            "shortened_url"=> url("/")."/".$this->shortened_url,
             "long_url"=> $this->long_url,
             "clicks"=> $this->clicks
         ];
