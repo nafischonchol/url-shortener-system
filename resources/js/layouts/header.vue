@@ -1,14 +1,14 @@
 <template>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#">URL Shortener System</a>
+            <a class="navbar-brand" href="/">URL Shortener System</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item" v-if="!isLoggedIn">
-                        <router-link class="nav-link" to="/login">Login</router-link>
+                        <router-link class="nav-link" :to="{ name: 'login' }">Login</router-link>
                     </li>
                     <li class="nav-item" v-if="!isLoggedIn">
-                        <router-link class="nav-link" to="/register">Sign Up</router-link>
+                        <router-link class="nav-link" :to="{ name: 'register' }">Sign Up</router-link>
                     </li>
 
                     <li class="nav-item dropdown" v-if="isLoggedIn">
@@ -36,7 +36,8 @@ import axios from "@/mixins/axios-config";
 const router = useRouter();
 const auth = userStore();
 const user  = ref(auth.getUserData());
-const isLoggedIn = user ? ref(true) : ref(false);
+
+const isLoggedIn = user.value ? ref(true) : ref(false);
 
 const logout = async () => {
 	try {
