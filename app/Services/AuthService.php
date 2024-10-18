@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Response;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService

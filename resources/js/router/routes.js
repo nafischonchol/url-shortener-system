@@ -22,7 +22,7 @@ let routes = [
             default: login,
             layouts: mainLayout,
         },
-        meta: { title: "Login", guestOnly: true },
+        meta: { title: "Login" },
     },
     {
         path: "/register",
@@ -31,7 +31,7 @@ let routes = [
             default: register,
             layouts: mainLayout,
         },
-        meta: { title: "Register", guestOnly: true },
+        meta: { title: "Register" },
     },
 ];
 export default routes;

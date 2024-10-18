@@ -9,14 +9,10 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const auth = userStore();
-
     let user = auth.getUserData();
-    const requiresAuth = !to.meta.guestOnly;
     const isAuthenticated = user?.token;
 
-    if (requiresAuth && !isAuthenticated) {
-        next({ path: "/login" });
-    } else if (to.path === "/login" && isAuthenticated) {
+    if (to.path === "/login" && isAuthenticated) {
         next({ path: "/" });
     } else {
         next();

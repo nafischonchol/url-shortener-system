@@ -107,6 +107,8 @@ const form = ref({
     password_confirmation: '',
 });
 
+
+
 const submitForm = async () => {
 	try {
 		const response = await axios.post("/register", form.value);

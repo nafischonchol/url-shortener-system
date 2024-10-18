@@ -1,18 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\URLShortenerController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// can't find out better way to handle vue route here. 
+Route::group(['middleware' => 'web'], function () {
+    $paths = ['login', 'register']; 
 
+    foreach ($paths as $path) {
+        Route::get("/{$path}", function () {
+            return view('app'); 
+        });
+    }
+});
+
+
+Route::get('/{shortened}', [URLShortenerController::class, 'redirectToOriginal'])
+    ->where('shortened', '[A-Za-z0-9]+');
+    
 Route::get('/{any}', function () {
-    return view('app');
+    return view('app'); 
 })->where('any', '.*');
