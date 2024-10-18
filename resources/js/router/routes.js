@@ -1,5 +1,4 @@
 import mainLayout from "@/layouts/main.vue";
-import guestLayout from "@/layouts/guest.vue";
 
 import dashboard from "@/pages/dashboard/index.vue";
 
@@ -21,7 +20,7 @@ let routes = [
         name: "login",
         components: {
             default: login,
-            layouts: guestLayout,
+            layouts: mainLayout,
         },
         meta: { title: "Login", guestOnly: true },
     },
@@ -30,7 +29,7 @@ let routes = [
         name: "register",
         components: {
             default: register,
-            layouts: guestLayout,
+            layouts: mainLayout,
         },
         meta: { title: "Register", guestOnly: true },
     },

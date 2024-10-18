@@ -1,3 +1,5 @@
 <template>
-    This is dashboard
+  <div class="container">
+    Home page
+  </div>
 </template>
