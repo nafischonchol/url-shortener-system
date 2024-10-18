@@ -32,51 +32,18 @@
         </main>
       </div>
 
-      <div class="row mt-5">
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table align-middle table-striped">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Shortened URL</th>
-                  <th>Long URL</th>
-                  <th>Clicks</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in links " :key="item.id">
-                  <td width="10%">
-                    <span>{{ item.created_at }}</span>
-                  </td>
-                  <td>
-                    <a :href="item.shortened_url" target="_blank">{{ item.shortened_url }}</a>
-                  </td>
-                  <td width="65%">
-                    <span class="text-break">{{ item.long_url }}</span>
-                  </td>
-                  <td>
-                    <span>{{ item.clicks }}</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <pagination v-if="paginate" :current-page="paginate.current_page" :total-items="paginate.total_item"
-            :total-pages="paginate.total_page" @page-change="fetchLinks">
-          </pagination>
-        </div>
-      </div>
+      <ShortenedHistory ref="shortenedHistoryRef" v-if="isLoggedIn()"/>
+
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import axios from "@/mixins/axios-config";
 import { useToast } from "vue-toastification";
 import Errors from "@/errors/errors.js";
-import Pagination from '@/components/pagination.vue';
+import ShortenedHistory from '@/pages/dashboard/shortened_history.vue';
 
 const toast = useToast();
 const allErrors = ref(new Errors());
@@ -84,22 +51,11 @@ const allErrors = ref(new Errors());
 const is_shortened = ref(false);
 const shortened_link = ref('');
 const original_link = ref('');
-const paginate = ref({});
 const form = ref({
   url: "",
 });
 
-const links = ref([]);
-
-onMounted(async () => {
-  await fetchLinks();
-});
-
-const fetchLinks = async (current_page = 1) => {
-  const response = await axios.get(`/links?page=${current_page}`);
-  links.value = response.data.item?.links;
-  paginate.value = response.data.item?.meta;
-};
+const shortenedHistoryRef = ref(null);
 
 const shortenUrl = async () => {
   try {
@@ -109,10 +65,10 @@ const shortenUrl = async () => {
     shortened_link.value = response.data.item;
     original_link.value = form.value.url;
     form.value.url = shortened_link.value;
-    await fetchLinks();
-
+    shortenedHistoryRef.value.fetchLinks();
   } catch (error) {
 
+    console.log(error);
     if (error && error.response.status === 422) {
       allErrors.value.record(error.response.data.errors);
     }

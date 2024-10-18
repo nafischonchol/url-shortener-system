@@ -15,7 +15,7 @@ class URLShortenerService
         try
         {
             $url = ShortenUrl::create([
-                "user_id" => auth()->id(),
+                "user_id" => auth()->id() ?? null,
                 "long_url" => $request->url,
             ]);
 
