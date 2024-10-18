@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained();
 
-            $table->string('long_url');
+            $table->text('long_url');
             $table->string('shortened_url')->nullable()->unique();
 
             $table->integer('clicks')->default(0);

@@ -6,16 +6,35 @@ use App\Http\Resources\ShortenedResource;
 use App\Models\ShortenUrl;
 use App\Traits\ResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class URLShortenerService
 {
     use ResponseTrait;
+
+    private function getUserId($request)
+    {
+        $token = $request->bearerToken();
+        if (!$token) 
+            return null;
+
+        $accessToken = PersonalAccessToken::findToken($token);
+
+        if (!$accessToken) 
+            return null;
+
+        $user = $accessToken->tokenable;
+
+        return $user->id;
+    }
+
     public function shorten($request)
     {
         try
         {
             $url = ShortenUrl::create([
-                "user_id" => auth()->id() ?? null,
+                "user_id" =>$this->getUserId($request),
                 "long_url" => $request->url,
             ]);
 
