@@ -63,7 +63,7 @@ const submitForm = async () => {
 		
 	} catch (error) {
 		if (error && error.response.status === 422) {
-			allErrors.record(error.response.data.errors);
+			allErrors.value.record(error.response.data.errors);
 		} 
 	}
 };
