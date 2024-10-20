@@ -16,10 +16,7 @@ This is a simple URL shortening service built using Laravel as the backend and V
 
 ### Steps to Set Up Locally
 1. #### Clone the repository:
-    ```
-    git clone https://github.com/nafischonchol/url-shortener-system
-    shortened-url-service
-    ```
+    `git clone https://github.com/nafischonchol/url-shortener-system`
 2. #### Install dependencies:
 
     ```
@@ -39,18 +36,12 @@ This is a simple URL shortening service built using Laravel as the backend and V
     DB_PASSWORD=your_password
     ```
 4. #### Generate the application key:
-   ```
-   php artisan key:generate
-   ```
+   `php artisan key:generate`
    
 5. #### Run migrations:
-    ```
-    php artisan migrate
-    ```
+    `php artisan migrate`
 6. #### Run development servers:
-    ```
-    npm run dev
-    ```
+    `npm run dev`
 Now application should run in http://127.0.0.1:8000 
     
 
