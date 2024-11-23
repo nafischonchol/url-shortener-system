@@ -11,7 +11,7 @@ This is a simple URL shortening service built using Laravel as the backend and V
 ### Tech Stack
 * Backend: Laravel
 * Frontend: Vue.js
-* Database: MySQL (or your preferred database)
+* Database: MySQL
 * Build Tool: Vite
 
 ### Steps to Set Up Locally
